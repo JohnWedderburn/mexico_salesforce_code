@@ -1,0 +1,13 @@
+###This is extracting regular donations
+###This should be equivalent to GA as it filters for the 1st donation
+
+SELECT
+ CloseDate,
+  COUNT(*) AS recurring_acquisitions_2026
+FROM `unhcr-mex-dl-raw-stg-prod.sf_raw.Opportunity`
+WHERE CloseDate >= '2026-01-01'
+  AND StageName = 'Closed Won'
+  AND Donacion_unica__c = FALSE                              -- recurring
+  AND npsp__Recurring_Donation_Installment_Number__c = 1     -- first gift = equivalance with GA
+GROUP BY 1
+ORDER BY 1 ASC;
