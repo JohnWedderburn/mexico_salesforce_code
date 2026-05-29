@@ -1,0 +1,11 @@
+###This is extracting one off donations, using the Donacion_unica__c field
+
+SELECT
+  CloseDate,
+  COUNT(*) AS one_off_donations
+FROM `unhcr-mex-dl-raw-stg-prod.sf_raw.Opportunity`
+WHERE CloseDate >= '2026-01-01'
+  AND StageName = 'Closed Won'
+  AND Donacion_unica__c = TRUE        
+GROUP BY 1
+ORDER BY 1 ASC;
